@@ -1,0 +1,55 @@
+<div class="ui one column grid container">
+    <div class="column">
+        <!-- spacer  -->
+    </div>
+    <!-- search bar -->
+    <div class="ui form column">
+        <div class="field">
+            <form ng-submit="doQuery()">
+                <div class="ui icon action input ">
+                <input type="text" placeholder="Search users ..." ng-model="personKeywordInput" class="block">
+                <input type="hidden" ng-model="personKeyword">
+                <i class="inverted circular search link icon" ng-click="doQuery()"></i>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- search user result -->
+    <div ng-switch="peopleMatch()" class="column aligned centered ng-class: showWait();" >
+        <div ng-show="(personKeywordCopy || getLastKeyword()) && !people && finishedSearch">
+            <div class="ui orange label">No results found for <strong>"{{personKeywordCopy || getLastKeyword()}}"</strong>.</div>
+        </div>
+        <div ng-switch-when="false" ng-show="!getLastKeyword()">
+            <h5>Please enter keyword(s) to search users.</h5>
+        </div>
+        <div ng-switch-default>
+            <div class="ui three column grid">
+                <div class="left floated left aligned column">
+                    <div  ng-show="!showWait()">Showing {{getStart()+1}} - {{getStart()+getNextMax()}} of {{peopleCount()}} Result<span ng-show="peopleCount()>1">s</span> for <strong>"{{getLastKeyword()}}"</strong></i></div>
+                    <div class="ui active loader" ng-show="showWait()"></div>
+                </div>
+                <div class="right floated right aligned column">
+                        <button ng-show="!isMin()" ng-click="setStart(false)" class="button"><i class="chevron left icon"></i></button>
+                        <button ng-show="!isMax()" ng-click="setStart(true)"class="button"><i class="chevron right icon"></i></button>
+                </div>
+            </div>
+            <div class="ui hidden divider"></div>
+            <div class="ui relaxed divided list">
+                <div class="item" ng-repeat="person in people">
+                    <div class="right floated content">
+                        <a class="ui tiny button" href="#/view/{{person.id}}">View</a>
+                    </div>
+                    <a class="left floated" href="#/view/{{person.id}}">
+                            <div ng-show="person.profileImageId"><img class="ui middle aligned mini circular image" ng-src="http://1.shocasecdn.com/{{person.profileImageId}}-c.jpg" style="width:42px;height:42px;"></div>
+                            <div ng-show="!person.profileImageId"><i class="inverted large circular user icon" ng-click="doQuery()" ></i></div>
+                    </a>
+                    <div class="left floated content">
+                        <div class="header"><a href="#/view/{{person.id}}">{{person.firstName}} {{person.lastName}}</a></div>
+                        <div class="description left floated content">{{person.currentTitle}} <span ng-show="person.currentTitle">-</span> {{person.currentCompany}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

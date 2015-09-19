@@ -1,0 +1,104 @@
+<div class="ui one column centered grid container">
+    <div class="column">
+        <!-- spacer  -->
+    </div>
+    <div class="column">
+        <div class="ui one column padded grid" ng-show="!person&&!projects">
+            <div class="ui inverted active dimmer">
+                <div class="ui active inline loader"></div>
+            </div>
+        </div>
+    </div>
+    <div class="column" ng-show="person">
+            <div class="ui middle aligned centered grid segment">
+                <div class="three wide column">
+                        <div ng-show="person.profileImage.id"><img class="left floated ui middle aligned circular image" ng-src="http://1.shocasecdn.com/{{person.profileImage.id}}-c.jpg" src="http://1.shocasecdn.com/{{person.profileImage.id}}-c.jpg"></div>
+                        <div ng-show="!person.profileImage.id"><i class="left floated inverted huge circular user icon" ></i></div>
+                </div>
+                <div class="ten wide column">
+                    <div class="header"><h2 href="#/view/{{person.id}}">{{person.firstName}} {{person.lastName}}</h2></div>
+                    <div class="description left floated content">{{person.currentTitle}} <span ng-show="person.currentTitle">-</span> {{person.currentCompany}}</div>
+                </div>
+                <div class="right floated right aligned three wide column">
+                        <div class="ui  right aligned grid">
+                            <div class="row"><div class="column"><a class="ui aligned button" href="#/">Back</a></div></div>
+                            <div class="row"><div class="column"><a class="ui button" ng-click="setView('projects')">View Projects</a></div></div>
+                            <div class="row"><div class="column"><a class="ui button" ng-click="setView('resume')">View Resume</a></div></div>
+                        </div>
+                </div>
+            </div>
+    </div>
+
+    <!-- list projects -->
+    <div class="column centered" ng-show="showView==='projects'&&projects&&person">
+        <h3>Projects</h3>
+        <div class="ui divider"></div>
+        <div class="ui link cards column ">
+            <div class="card" ng-repeat="project in projects">
+                <div class="image">
+                    <a ng-show="project.awards" class="ui orange right corner label">
+                        <i class="trophy icon"></i>
+                    </a>
+                    <img ng-src="http://1.shocasecdn.com/{{project.coverImage.id}}-c.jpg">
+                </div>
+                <div class="content">
+                    <a class="header">{{project.projectName}}</a>
+                    <div class="meta">
+                            <span class="date">
+                                <div class="ui horizontal bulleted link list">
+                                    <a class="item" ng-repeat="type in project.projectTypeList">
+                                        {{type}}
+                                    </a>
+                                </div>
+                            </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="column centered" ng-show="showView==='projects'&&!projects&&person">
+        <h3>Projects</h3>
+        <div class="ui divider"></div>
+        <div class="header"><i>No projects found.</i></div>
+    </div>
+
+    <!-- resume -->
+    <div class="column centered"  ng-show="showView==='resume'">
+        <h2>Resume</h2>
+        <div class="ui divider"></div>
+        <h3 class="ui blue header">Summary</h3>
+        <div ng-show="person.summary" class="description">{{person.summary}}</div>
+        <div ng-show="!person.summary"><i>No summary added.</i></div>
+        <h3 ng-show="person.userProfile.jobs" class="ui blue header">Experience</h3>
+        <div ng-show="person.userProfile.jobs" ng-repeat="job in person.userProfile.jobs" class="description">
+                <h4 class="ui header">{{job.title}}
+                    <div class="sub grey header">{{job.company.name}}</div>
+
+                </h4>
+                <div class="description">{{setMonth(job.startMonth)}} {{job.startYear}}
+                    <span ng-show="job.endMonth">- {{setMonth(job.endMonth)}}  {{job.endYear}}</span>
+                    <span ng-show="!job.endMonth&&job.startMonth">- Present</span>
+                </div>
+                <div class="description">{{job.locationTO.cityState}}</div>
+                <div class="ui hidden fitted divider"></div>
+                <div class="ui hidden fitted divider"></div>
+                <div class="description">{{job.description}}</div>
+                <div class="ui divider" ng-show="!$last"></div>
+        </div>
+        <h3 ng-show="person.userProfile.education" class="ui blue  header">Education</h3>
+        <div ng-show="person.userProfile.education" ng-repeat="edu in person.userProfile.education" class="description">
+            <div class="header">{{edu.school.name}}</div>
+            <div class="header">{{edu.fieldOfStudy}}</div>
+            <div class="header" ng-show="edu.degree">{{edu.degree}}</div>
+            <div class="ui divider" ng-show="!$last"></div>
+        </div>
+        <h3 ng-show="person.userProfile.skills" class="ui blue  header">Skills</h3>
+        <div ng-show="person.userProfile.skills" ng-repeat="skill in person.userProfile.skills" class="description">
+            <div class="header">{{skill}}</div>
+        </div>
+        <div class="ui hidden divider"></div>
+        <div class="ui hidden divider"></div>
+        <div class="ui hidden divider"></div>
+        <div class="ui hidden  divider"></div>
+    </div>
+</div>
