@@ -26,6 +26,6 @@ node start.js
 
 **http://domain.com/shocase**
 
-##### Disabling CORS
+##### Enabling CORS
 
 If the app is not run on the shocase.com domain, errors will occur and prevent the app from operating properly.  Recommend running app on a shocase.com domain or using a plugin on your web browser to enable CORS. For Google Chrome, I recommend the extension **Allow-Control-Allow-Origin**.
