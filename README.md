@@ -4,7 +4,7 @@ Sample app demonstrating people search from the shocase.com database.
 
 ## Installation
 
-App can be run from a system with **node** installed or a standard HTTP server.
+App can be run from a system with **node** installed or a standard HTTP server.  In either case, CORS will **need** to be enabled in order for the app to run on a local machine or domain other than shocase.com.  Please see note below.
 
 ##### With Node:
 
@@ -28,4 +28,4 @@ node start.js
 
 ##### Disabling CORS
 
-If the app is not run on the shocase.com domain, CORS errors will occur and prevent the app from operating properly.  Recommend running app on a shocase.com domain or using a plugin on your web browser to disable CORS. For Google Chrome, I recommend the extension **Allow-Control-Allow-Origin**.
+If the app is not run on the shocase.com domain, errors will occur and prevent the app from operating properly.  Recommend running app on a shocase.com domain or using a plugin on your web browser to enable CORS. For Google Chrome, I recommend the extension **Allow-Control-Allow-Origin**.
